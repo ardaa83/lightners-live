@@ -38,21 +38,23 @@ function draw() {
 
 // Generate notes periodically
 function keyPressed() {
-  if (key === 'Z' || key === 'X') {
-    let index = lanes.indexOf(key);
-    if (index !== -1) {
-      for (let i = notes.length - 1; i >= 0; i--) {
-        let note = notes[i];
-        let d = dist(note.x, note.y, targets[index], height - 90);
-        if (d < 25) {
-          score++;
-          notes.splice(i, 1);
-          return;
-        }
+  let pressed = key.toUpperCase(); // BÜYÜK harfe çevir
+
+  if (pressed === 'Z' || pressed === 'X') {
+    let index = pressed === 'Z' ? 0 : 1;
+
+    for (let i = notes.length - 1; i >= 0; i--) {
+      let note = notes[i];
+      let d = dist(note.x, note.y, targets[index], height - 90);
+      if (d < 25) {
+        score++;
+        notes.splice(i, 1);
+        return;
       }
     }
   }
 }
+
 
 function mousePressed() {
   // Manual note spawn (for testing)
